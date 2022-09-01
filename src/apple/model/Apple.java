@@ -12,8 +12,8 @@ public class Apple {
         this.color = color;
     }
 
-    public int getWeight() {
-        return weight;
+    public Integer getWeight() {
+        return this.weight;
     }
 
     public void setWeight(int weight) {
@@ -21,7 +21,7 @@ public class Apple {
     }
 
     public Color getColor() {
-        return color;
+        return this.color;
     }
 
     public void setColor(Color color) {

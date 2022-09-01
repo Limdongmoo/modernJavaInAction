@@ -11,6 +11,7 @@ import apple.model.applepredicate.Predicate;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -110,6 +111,44 @@ public class AppleFilterApplication {
             System.out.println("e = " + e);
 
         }
+
+        /**
+         * 익명 클래스를 이용해 사과의 무게 순으로 정리
+         */
+        appleList.sort(new Comparator<Apple>() {
+            @Override
+            public int compare(Apple o1, Apple o2) {
+                return o1.getWeight().compareTo(o2.getWeight());
+            }
+        });
+
+        /**
+         * 람다를 이용해 사과의 무게순으로 정리
+         */
+
+        appleList.sort(
+                (Apple a1, Apple a2) -> a1.getWeight().compareTo(a2.getWeight())
+        );
+
+        appleList.sort(
+                Comparator.comparing(Apple::getWeight)
+        );
+
+        /**
+         * 익명 클래스 Runnable 로 코드 블록 실행하기
+         */
+
+        Thread at = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Hello ");
+            }
+        });
+
+        /**
+         * 람다 식으로 스레드 코드 구현
+      현  */
+        Thread lt = new Thread( () -> System.out.println(" = " ));
 
     }
 }
