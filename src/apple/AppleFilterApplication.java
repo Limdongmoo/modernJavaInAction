@@ -20,9 +20,7 @@ import static java.awt.Color.*;
 public class AppleFilterApplication {
 
     public static List<Apple> filteringApple(List<Apple> appleList, ApplePredicate p) {
-
         List<Apple> result = new ArrayList<>();
-
         for (Apple a : appleList) {
             if (p.test(a)) {
                 result.add(a);
@@ -70,6 +68,7 @@ public class AppleFilterApplication {
          *  메소드의 파라미터화  -> 동작 파라미터화
          */
         List<Apple> greenAppleList = filteringApple(appleList, new AppleColorPredicate());
+        List<Apple> heavyAppleList = filteringApple(appleList, new AppleWeightPredicate());
 
         formattingApple(appleList, new AppleFancyFormatter());
         System.out.println("");
