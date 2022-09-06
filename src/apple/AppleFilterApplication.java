@@ -89,11 +89,11 @@ public class AppleFilterApplication {
         /**
          * 람다식을 이용한 필터
          */
-        List<Apple> filterGreenAppleWithRamda =
+        List<Apple> filterGreenAppleWithLambda =
                 appleList.stream()
                         .filter(a -> a.getColor().equals(GREEN))
                         .collect(Collectors.toList());
-        formattingApple(filterGreenAppleWithRamda, new AppleFancyFormatter());
+        formattingApple(filterGreenAppleWithLambda, new AppleFancyFormatter());
 
 
         /**
