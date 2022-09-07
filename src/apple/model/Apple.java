@@ -6,6 +6,7 @@ public class Apple {
 
     private int weight;
     private Color color;
+    private String country;
 
     public Apple() {
     }
@@ -37,6 +38,14 @@ public class Apple {
 
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     @Override
