@@ -2,6 +2,7 @@ package menu;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -188,5 +189,43 @@ public class UsingStream {
             System.out.println(ints2[0]);
             System.out.println(ints2[1]);
         }
+
+        /**
+         * 검색과 매칭
+         * 쇼트 서킷 : 모든 요소를 확인하지 않고도 (처리하지 않고도) 반환할 수 있는, 원하는 결과를 얻은경우 바로 반환할 수 있는 스트림
+         */
+
+        //1. predicate 가 적어도 한 요소와 일치하는지
+        if (list.stream()
+                .anyMatch(a -> a.getType().equals(Type.FISH))) {
+            System.out.println("the menu has seaFood");
+        }
+
+        //2. predicate 가 모든 요소와 일치하는지
+        if (list.stream()
+                .allMatch(a -> a.getType().equals(Type.MEAT))) {
+            System.out.println("the menu is not vegetarian friendly ");
+        }
+
+        //3. predicate 가 모든 요소와 불일치 하는지
+        if (list.stream()
+                .noneMatch(Dish::isVegetarian)) {
+            System.out.println("the menu is not vegetarian friendly");
+        }
+
+        /**
+         * 숫자 리스트에서 제곱수가 3으로 나누어 떨어지는 첫 요소 반환
+         * 소스 : numList
+         * 요소 : Integer
+         * 중간 연선 : map -> filter
+         * 최종 연산 : findFirst / findAny
+         */
+        List<Integer> numList = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        numList.stream()
+                .map(n -> n * n)
+                .filter(a -> a % 3 == 0)
+                .findFirst();
+
+
     }
 }
