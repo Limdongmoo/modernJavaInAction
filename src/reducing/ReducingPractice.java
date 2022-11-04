@@ -3,10 +3,7 @@ package reducing;
 import menu.Dish;
 import menu.DishPractice;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -172,6 +169,62 @@ public class ReducingPractice {
         System.out.println("maxValue = " + maxValue.get());
         System.out.println("minValue.get() = " + minValue.get());
 
+
+        /*
+        아래의 reduce 연산의 경우 박싱비용이 들어간다
+        .map 에서는 Stream<Integer> 를 반환해주기 때문에 int 형에 저장하기 위해서는
+        Integer 를 언박싱 해서 sum 연산을 수행해야 한다.
+         */
+        int calories = menu.stream()
+                .map(Dish::getCalories)
+                .reduce(0, Integer::sum);
+
+        System.out.println("calories = " + calories);
+
+        /*
+        "기본형 특화 스트림" 을 사용하면 박싱 비용을 피할 수 있다.
+        IntStream, DoubleStream, LongStream 을 제공한다.
+        특화 스트림은 단지 박싱 과정에서 일어나는 효율성에만 관련있으며 추가 기능을 제공하지는 않는다.
+
+        특화 스트림으로 변환시에는 mapToInt, mapToDouble, mapToLong 메서드를 가장 많이 사용한다.
+        map 과 동일한 기능을 수행하지만
+        기존 map 은 Stream<T> 를 반환한다면
+        위의 메서드들은 특화 스트림을 반환한다.
+         */
+
+        int sum1 = menu.stream()
+                .mapToInt(Dish::getCalories)
+                .sum();
+
+        double sum = menu.stream()
+                .mapToDouble(Dish::getCalories)
+                .sum();
+
+        //언박싱된 IntStream -> 다시 박싱하기
+        Stream<Integer> boxed = menu.stream()
+                .mapToInt(Dish::getCalories)        // 언박싱, return -> IntStream
+                .boxed();                           // 다시 박싱하기 return -> Stream<T>
+
+
+        /*
+        Optional 은 값을 반환하기 이전에 값의 존져여부를 가리킬 수 있는 컨테이너 클래스
+        OptionalInt, OptionalDouble, OptionalLong 의 세가지 기본형 특화 스트림 제공
+
+        기존의 IntStream.sum 에서는 값이 존재하지 않는 경우 0을 return 하기 때문에 int 자료형을 사용한다.
+        하지만 max, min 등 의 메소드에서 값이 존재하지 않는 경우를 대비해 OptionalInt 로 값을 반환하며
+        OptionalDouble, OptionalLong 의 경우에도 각 자료형에 맞는 Optional 로 반환해준다.
+         */
+        OptionalInt max1 = menu.stream()
+                .mapToInt(Dish::getCalories)
+                .max();
+
+        OptionalDouble max2 = menu.stream()
+                .mapToDouble(Dish::getCalories)
+                .max();
+
+        OptionalLong min1 = menu.stream()
+                .mapToLong(Dish::getCalories)
+                .min();
 
     }
 }
